@@ -8,6 +8,8 @@ import traceback
 from settings import common as var
 from base64 import b64encode
 import imp
+import sys
+import os
 
 def on_privmsg(cli, rawnick, chan, msg, notice = False):
     currmod = ld.MODULES[ld.CURRENT_MODULE]
@@ -175,3 +177,27 @@ if botconfig.DEBUG_MODE:
             cli.msg(chan, "Module {0} is now active.".format(rest))
         else:
             cli.msg(chan, "Module {0} does not exist.".format(rest))
+            
+@pmcmd("frestart", admin_only=True)
+@cmd("frestart", admin_only=True)
+def restart_program(cli, nick, *rest):
+    """Restarts the bot."""
+    try:
+        if var.PHASE in ("day", "night"):
+            stop_game(cli)
+        else:
+            reset(cli)
+
+        cli.quit("Forced restart from "+nick)
+        raise SystemExit
+    finally:
+        print("RESTARTING")
+        python = sys.executable
+        if rest[-1].strip().lower() == "debugmode":
+            os.execl(python, python, sys.argv[0], "--debug")
+        elif rest[-1].strip().lower() == "normalmode":
+            os.execl(python, python, sys.argv[0])
+        elif rest[-1].strip().lower() == "verbosemode":
+            os.execl(python, python, sys.argv[0], "--verbose")
+        else:
+            os.execl(python, python, *sys.argv)

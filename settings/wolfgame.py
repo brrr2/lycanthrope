@@ -24,7 +24,7 @@ QUIT_GRACE_TIME = 30
 #  controls how many people it does in one /msg; only works for messages that are the same
 MAX_PRIVMSG_TARGETS = 2
 LEAVE_STASIS_PENALTY = 1
-IDLE_STASIS_PENALTY = 1
+IDLE_STASIS_PENALTY = 0
 PART_STASIS_PENALTY = 1
 
 GOAT_HERDER = True
@@ -52,8 +52,8 @@ DETECTIVE_REVEALED_CHANCE = 2/5
 #   ROLE INDEX:   PLAYERS   SEER    WOLF   CURSED   DRUNK   HARLOT  TRAITOR  GUNNER   CROW    ANGEL DETECTIVE  ##
 #################################################################################################################
 ROLES_GUIDE = {    4    : (   1   ,   1   ,   0   ,   0   ,   0   ,    0   ,   0   ,   0    ,   0   ,   0   ), ##
-                   6    : (   1   ,   1   ,   1   ,   0   ,   0   ,    0   ,   0   ,   0    ,   0   ,   0   ), ##
-                   8    : (   1   ,   1   ,   1   ,   1   ,   1   ,    1   ,   0   ,   0    ,   0   ,   0   ), ##
+                   6    : (   1   ,   1   ,   1   ,   1   ,   0   ,    0   ,   0   ,   0    ,   0   ,   0   ), ##
+                   8    : (   1   ,   2   ,   1   ,   1   ,   1   ,    0   ,   0   ,   0    ,   0   ,   0   ), ##
                    10   : (   1   ,   2   ,   1   ,   1   ,   1   ,    1   ,   1   ,   0    ,   0   ,   0   ), ##
                    12   : (   1   ,   2   ,   1   ,   1   ,   1   ,    1   ,   1   ,   1    ,   0   ,   1   ), ##
                    15   : (   1   ,   3   ,   1   ,   1   ,   1   ,    1   ,   1   ,   1    ,   0   ,   1   ), ##
@@ -88,9 +88,9 @@ NO_VICTIMS_MESSAGES = ("The body of a young penguin pet is found.",
                        "Traces of wolf fur are found.")
 LYNCH_MESSAGES = ("The villagers, after much debate, finally decide on lynching \u0002{0}\u0002, who turned out to be... a \u0002{1}\u0002.",
                   "Under a lot of noise, the pitchfork-bearing villagers lynch \u0002{0}\u0002, who turned out to be... a \u0002{1}\u0002.",
-                  "Despite protests, the mob drags their victim to the hanging tree. \u0002{0}\u0002 succumbs to the will of the horde, and is hanged. The villagers have killed a \u0002{1}\u0002.",
-                  "Resigned to the inevitable, \u0002{0}\u0002 is led to the gallows. Once the twitching stops, it is discovered that the village lynched a \u0002{1}\u0002.",
-                  "Before the rope is pulled, \u0002{0}\u0002, the \u0002{1}\u0002, throws a grenade at the mob. The grenade explodes early.")
+                  "The mob drags a protesting \u0002{0}\u0002 to the hanging tree. S/He succumbs to the will of the horde, and is hanged. It is discovered (s)he was a \u0002{1}\u0002.",
+                  "Resigned to his/her fate, \u0002{0}\u0002 is led to the gallows. After death, it is discovered (s)he was a \u0002{1}\u0002.",
+                  "As s/he is about to be lynched, \u0002{0}\u0002, the \u0002{1}\u0002, throws a grenade at the mob.  The grenade explodes early.")
 
 import botconfig
 
