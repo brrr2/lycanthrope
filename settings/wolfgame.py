@@ -1,3 +1,5 @@
+from settings.mystats import NAME
+
 PING_WAIT = 300  # Seconds
 PING_MIN_WAIT = 30 # How long !start has to wait after a !ping
 MINIMUM_WAIT = 60
@@ -193,8 +195,8 @@ class ChangedRolesMode(object):
 # Load saved settings
 import sqlite3
 
-conn = sqlite3.connect("data.sqlite3", check_same_thread = False)
-
+conn = sqlite3.connect(NAME, check_same_thread = False)
+conn.text_factory = bytes
 with conn:
     c = conn.cursor()
     c.execute('CREATE TABLE IF NOT EXISTS away (nick TEXT)')  # whoops, i mean cloak, not nick
@@ -254,7 +256,7 @@ def add_ping(clk):
 
 
 def update_role_stats(acc, role, won, iwon):
-
+    conn.text_factory = bytes
     with conn:
         wins, iwins, totalgames = 0, 0, 0
 
@@ -271,7 +273,6 @@ def update_role_stats(acc, role, won, iwon):
         if iwon:
             iwins += 1
         total += 1
-
         c.execute("INSERT OR REPLACE INTO rolestats VALUES (?,?,?,?,?)",
                   (acc, role, wins, iwins, total))
 

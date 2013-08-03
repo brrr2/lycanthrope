@@ -30,11 +30,11 @@ def connect_callback(cli):
     
     var.LAST_STATS = None
 
-@pmcmd("mystats")
+@pmcmd("mystats", "")
 def get_my_stats_pm(cli, nick, rest):
     get_my_stats(cli, nick, "", rest)
 
-@cmd("mystats")
+@cmd("mystats", "lycanstats")
 def get_my_stats(cli, nick, chan, rest):
     """Get my stats of how good I really am/was."""
     rest = rest.strip()
@@ -42,13 +42,20 @@ def get_my_stats(cli, nick, chan, rest):
         cli.notice(nick, "Supply a role name.")
     
     var.CONN = sqlite3.connect(var.NAME, check_same_thread = False)
+    var.CONN.text_factory = bytes
+    
     with var.CONN:
         c = var.CONN.cursor()
+        
         for row in c.execute("SELECT * FROM rolestats WHERE player = '%s' AND role = '%s'" % (nick, rest.strip())):
             cli.notice(nick, ("{0}: As {1}, you have {2} team wins, {3} individual wins, and {4} total games.".format(*row)))
+            
+        c.close()
     
 def load_saved_settings(nam):
+    
     var.CONN = sqlite3.connect(nam, check_same_thread = False)
+    var.CONN.text_factory = bytes
 
     with var.CONN:
         c = var.CONN.cursor()
@@ -60,5 +67,7 @@ def load_saved_settings(nam):
         c.execute(('CREATE TABLE IF NOT EXISTS rolestats (player TEXT, role TEXT, '+
             'teamwins SMALLINT, individualwins SMALLINT, totalgames SMALLINT, '+
             'UNIQUE(player, role))'))
+            
+        c.close()
             
 load_saved_settings(var.NAME)
